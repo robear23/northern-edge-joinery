@@ -1,0 +1,15 @@
+# local form submissions from server.py
+enquiries.log
+*.log
+
+# python
+__pycache__/
+*.pyc
+
+# node, if any tooling is installed locally
+node_modules/
+
+# screenshots and audit output from build/shot.py and Lighthouse
+build/*.png
+build/*.jpg
+build/lh-*.json

@@ -1,0 +1,362 @@
+/* ============================================================
+   Design Identity — Noba & Stod
+   Source:    https://nobaandstod.co.uk/
+   Extracted: 2026-08-12
+   Aesthetic: Editorial (luxury editorial — dark, serif-led, flat)
+
+   The source has NO CSS custom properties — it is compiled SCSS
+   with hardcoded literals. Every token below was recovered by
+   frequency + selector-context analysis and verified against a
+   full-page screenshot. Values marked "inferred" are NOT in the
+   source; using them departs from the original design.
+   ============================================================ */
+
+/* Fonts are self-hosted woff2 in the source (Cormorant 400,
+   Raleway 400/500). Equivalent Google Fonts import:
+
+   @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400&family=Raleway:wght@400;500&display=swap');
+
+   NOTE: the source declares the serif as "Сormorant" with a leading
+   U+0421 CYRILLIC CAPITAL ES — a typo that only works because its
+   @font-face repeats the same string. Use the Latin spelling below. */
+
+:root {
+
+  /* ── Colors: Brand ─────────────────────────────────────── */
+  --color-primary:       #dec497;  /* champagne gold — hsl(38, 52%, 73%) */
+  --color-primary-dark:  #cfa968;  /* inferred — source has no darker gold; buttons invert instead */
+  --color-primary-light: #eddec5;  /* inferred */
+  --color-secondary:     #f0eeeb;  /* warm bone — hsl(36, 14%, 93%) */
+  --color-accent:        #ceccc5;  /* warm stone — hsl(47, 8%, 79%) */
+  --color-ink:           #131413;  /* deepest ink — hsl(120, 3%, 8%) */
+  --color-charcoal:      #2c2e2c;  /* page ground — hsl(120, 2%, 18%) */
+  --color-white:         #ffffff;  /* default button + nav link text — NOT the bone */
+
+  /* ── Colors: Neutral Scale ──────────────────────────────── */
+  /* Dark-first: 800/900 are the page grounds, 100/300 are the text. */
+  --color-neutral-50:  #f9f9f9;
+  --color-neutral-100: #f0eeeb;  /* heading text on dark */
+  --color-neutral-200: #dfddd8;  /* inferred */
+  --color-neutral-300: #ceccc5;  /* default body text on dark */
+  --color-neutral-400: #a2a29e;  /* inferred */
+  --color-neutral-500: #777777;
+  --color-neutral-600: #606060;  /* inferred */
+  --color-neutral-700: #494949;  /* decorative display only — ~1.9:1 on page ground */
+  --color-neutral-800: #2c2e2c;  /* page background */
+  --color-neutral-900: #131413;  /* section / footer background */
+
+  /* ── Colors: Semantic ───────────────────────────────────── */
+  --color-success:   #46b450;  /* Contact Form 7 default — not brand-authored */
+  --color-warning:   #ffb900;  /* Contact Form 7 default — not brand-authored */
+  --color-error:     #e74c3c;  /* theme-authored */
+  --color-error-alt: #dc3232;  /* Contact Form 7 default */
+  --color-info:      #00a0d2;  /* Contact Form 7 default — not brand-authored */
+
+  /* ── Colors: Surface ────────────────────────────────────── */
+  --color-surface:         #2c2e2c;            /* page background (body) */
+  --color-surface-sunken:  #131413;            /* section grounds, footer */
+  --color-surface-gold:    #dec497;            /* closing CTA panel */
+  --color-surface-light:   #f0eeeb;            /* inverted light sections */
+  --color-surface-overlay: rgba(0, 0, 0, 0.4); /* hero image scrim */
+
+  /* ── Colors: Alpha ──────────────────────────────────────── */
+  --color-alpha-white-30: rgba(255, 255, 255, 0.3);  /* button borders, nav rules */
+  --color-alpha-bone-30:  rgba(240, 238, 235, 0.3);  /* section-label hairline */
+  --color-alpha-stone-30: rgba(206, 204, 197, 0.3);  /* card hairline */
+  --color-alpha-ink-70:   rgba(19, 20, 19, 0.7);     /* heavy scrim */
+  --color-alpha-ink-20:   rgba(19, 20, 19, 0.2);     /* light scrim */
+
+  /* ── Typography: Font Families ──────────────────────────── */
+  --font-heading: 'Cormorant', Georgia, 'Times New Roman', serif;
+  --font-body:    'Raleway', system-ui, -apple-system, sans-serif;
+  --font-mono:    monospace;  /* source defines none — browser default */
+
+  /* ── Typography: Font Sizes ─────────────────────────────── */
+  --text-xs:   0.75rem;   /* 12px — captions, legal, footer meta */
+  --text-sm:   0.875rem;  /* 14px — nav, buttons (uppercase, 500) */
+  --text-base: 1rem;      /* 16px — body */
+  --text-lg:   1.125rem;  /* 18px — lead paragraphs */
+  --text-xl:   1.25rem;   /* 20px — large body */
+  --text-2xl:  1.5rem;    /* 24px — H4 */
+  --text-3xl:  1.875rem;  /* 30px — H3, mobile H2 */
+  --text-4xl:  2.375rem;  /* 38px — H2 */
+  --text-5xl:  3rem;      /* 48px — primary section heading */
+  --text-6xl:  4.125rem;  /* 66px — large section display */
+  --text-7xl:  5.5rem;    /* 88px — hero heading */
+  --text-8xl:  8rem;      /* 128px — oversized editorial display */
+
+  /* ── Typography: Font Weights ───────────────────────────── */
+  /* Only two weights exist. There is NO bold in this system —
+     setting 600+ triggers faux-bold and breaks the identity. */
+  --font-normal: 400;
+  --font-medium: 500;
+
+  /* ── Typography: Line Heights ───────────────────────────── */
+  --leading-none:    1;     /* 100% — hero, display */
+  --leading-tight:   1.2;   /* 120% — headings */
+  --leading-normal:  1.5;   /* 150% — UI, nav, buttons */
+  --leading-relaxed: 1.6;   /* 160% — body prose */
+
+  /* ── Typography: Letter Spacing ─────────────────────────── */
+  --tracking-tight:  -0.02em;  /* display + headings, 24px and up */
+  --tracking-snug:   -0.01em;  /* body + UI, 12–21px */
+  --tracking-normal: 0;        /* uppercase nav and buttons */
+  --tracking-wide:   0.05em;   /* inferred — not used in source */
+  --tracking-wider:  0.1em;    /* inferred — not used in source */
+
+  /* ── Spacing ────────────────────────────────────────────── */
+  --space-px: 1px;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  28px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 50px;   /* source uses 50px, not the conventional 48px */
+  --space-14: 56px;
+  --space-18: 72px;
+  --space-20: 80px;
+  --space-22: 90px;
+  --space-25: 100px;
+  --space-31: 125px;
+  --space-45: 180px;  /* the signature section rhythm */
+
+  /* ── Layout: Named Tokens ───────────────────────────────── */
+  --gutter:        15px;
+  --header-pad:    56px;   /* collapses to 14px on scroll over 300ms */
+  --header-height: 100px;
+  --section-y:     180px;  /* .pt-180 / .pb-180 — do not reduce to 64–96px */
+  --section-y-md:  100px;
+  --section-y-sm:  80px;
+  --grid-gap-x:    180px;
+  --grid-gap-y:    80px;
+
+  --container-max:  1440px;
+  --container-wide: 1920px;
+  --measure:        540px;  /* editorial prose measure */
+  --measure-narrow: 360px;
+
+  /* ── Layout: Breakpoints ────────────────────────────────── */
+  /* Source is authored desktop-first with max-width queries;
+     these are the min-width equivalents. */
+  --breakpoint-sm:  768px;
+  --breakpoint-md:  1100px;
+  --breakpoint-lg:  1500px;
+  --breakpoint-xl:  1520px;
+  --breakpoint-2xl: 1920px;
+
+  /* ── Layout: Z-Index ────────────────────────────────────── */
+  --z-nav:    100;
+  --z-header: 101;
+  --z-cursor: 1000;
+
+  /* ── Border Radius ──────────────────────────────────────── */
+  /* This design is deliberately sharp. Only buttons curve. */
+  --radius-none:    0;       /* THE DEFAULT — cards, images, panels, inputs */
+  --radius-sm:      0;       /* intentionally 0 */
+  --radius-md:      0;       /* intentionally 0 */
+  --radius-lg:      0;       /* intentionally 0 */
+  --radius-xl:      0;       /* intentionally 0 */
+  --radius-2xl:     0;       /* intentionally 0 */
+  --radius-pill:    71px;    /* buttons — extracted verbatim */
+  --radius-control: 50px;    /* swiper control cluster */
+  --radius-circle:  50%;     /* custom cursor, avatars */
+  --radius-full:    9999px;
+
+  /* ── Borders ────────────────────────────────────────────── */
+  --border-width:    1px;    /* the only border width in the system */
+  --border-hairline: 1px solid rgba(255, 255, 255, 0.3);
+  --rule-height:     2px;
+
+  /* ── Shadows ────────────────────────────────────────────── */
+  /* The source contains NO shadows — only `box-shadow: none`.
+     Depth comes from colour contrast and full-bleed photography.
+     The ramp below is inferred, tinted with brand ink rather than
+     pure black. Using it departs from the source design. */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 3px 0 rgba(19,20,19,0.24), 0 1px 2px -1px rgba(19,20,19,0.24);    /* inferred */
+  --shadow-md: 0 4px 6px -1px rgba(19,20,19,0.28), 0 2px 4px -2px rgba(19,20,19,0.28); /* inferred */
+  --shadow-lg: 0 10px 15px -3px rgba(19,20,19,0.32), 0 4px 6px -4px rgba(19,20,19,0.32); /* inferred */
+  --shadow-xl: 0 20px 25px -5px rgba(19,20,19,0.38), 0 8px 10px -6px rgba(19,20,19,0.38); /* inferred */
+
+  /* ── Motion ─────────────────────────────────────────────── */
+  /* 300ms is the ONLY duration in the source — 24 bare
+     `transition: .3s` plus every scoped transition. */
+  --duration-instant: 75ms;   /* inferred */
+  --duration-fast:    150ms;  /* inferred */
+  --duration-normal:  300ms;  /* THE SITE STANDARD */
+  --duration-slow:    400ms;  /* inferred */
+
+  --ease-default: ease;                        /* source implicit default */
+  --ease-in-out:  cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:     cubic-bezier(0, 0, 0.2, 1);  /* inferred */
+  --ease-in:      cubic-bezier(0.4, 0, 1, 1);  /* inferred */
+}
+
+/* ── Dark Mode ─────────────────────────────────────────────
+   Not applicable. The source has no `prefers-color-scheme`
+   blocks, no [data-theme] selectors and no .dark overrides —
+   verified across all three stylesheets and the page HTML.
+   This site is dark-ONLY by design: the dark palette is not a
+   mode, it is the brand. For a light SECTION (which is on-brand,
+   see the closing CTA panel), invert with the tokens below.
+   ──────────────────────────────────────────────────────────── */
+
+.section--light {
+  background-color: var(--color-surface-light);  /* #f0eeeb */
+  color: var(--color-neutral-900);               /* #131413 */
+}
+
+.section--gold {
+  background-color: var(--color-surface-gold);   /* #dec497 */
+  color: var(--color-neutral-900);               /* text on gold is ALWAYS ink */
+}
+
+/* ── Base ──────────────────────────────────────────────────
+   Mirrors the source's body/html rule verbatim.
+   ──────────────────────────────────────────────────────────── */
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-style: normal;
+  font-weight: var(--font-normal);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-neutral-300);
+  background-color: var(--color-surface);
+  margin: 0;
+  padding: 0;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-neutral-100);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+h1 { font-size: var(--text-7xl); line-height: var(--leading-none); }
+h2 { font-size: var(--text-5xl); }
+h3 { font-size: var(--text-3xl); }
+h4 { font-size: var(--text-2xl); }
+
+.container {
+  max-width: var(--container-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ── Components ───────────────────────────────────────────── */
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+  text-transform: uppercase;
+  color: #ffffff;
+  background: transparent;
+  border: var(--border-width) solid var(--color-alpha-white-30);
+  border-radius: var(--radius-pill);
+  padding: 10px var(--space-5);
+  transition: var(--duration-normal);
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Primary CTA — inverts on hover, it does not darken */
+.btn--filled {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-neutral-900);
+}
+
+.btn--filled:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+/* For use on gold panels */
+.btn--filled--2 {
+  background-color: var(--color-neutral-900);
+  border-color: var(--color-neutral-900);
+  color: var(--color-neutral-100);
+}
+
+.btn--filled--2:hover {
+  background-color: transparent;
+  color: var(--color-neutral-900);
+  border-color: var(--color-neutral-900);
+}
+
+/* The recurring section eyebrow: small label above a hairline rule */
+.section-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--font-normal);
+  color: var(--color-neutral-100);
+  max-width: var(--measure-narrow);
+  padding-bottom: var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-alpha-bone-30);
+}
+
+.card {
+  background: transparent;
+  border: var(--border-width) solid var(--color-alpha-stone-30);
+  border-radius: var(--radius-none);
+  box-shadow: var(--shadow-none);
+  transition: var(--duration-normal);
+}
+
+.card:hover { border-color: var(--color-neutral-100); }
+.card:hover img { filter: brightness(1); }
+.card:not(:last-child) { margin-bottom: var(--space-10); }
+
+/* Editorial prose block — the site's signature text treatment */
+.prose-display {
+  font-family: var(--font-heading);
+  font-size: var(--text-5xl);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  max-width: var(--measure);
+  color: var(--color-neutral-100);
+}
+
+.pt-180 { padding-top: var(--section-y); }
+.pb-180 { padding-bottom: var(--section-y); }
+
+/* ── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 1100px) {
+  .container { max-width: calc(100vw - 80px); }
+  :root { --section-y: 100px; }
+}
+
+@media (max-width: 767px) {
+  .container { max-width: calc(100vw - 30px); }
+  :root { --section-y: 80px; --grid-gap-x: 40px; --header-pad: 14px; }
+  h1 { font-size: var(--text-4xl); }
+  h2 { font-size: var(--text-3xl); }
+}

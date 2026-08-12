@@ -1,0 +1,38 @@
+# Netlify deployment for the Northern Edge Joinery site.
+
+[build]
+  publish   = "site"
+  functions = "netlify/functions"
+
+# The form posts to /api/enquiry in every environment; here that maps to the
+# function. Locally, server.py implements the same route.
+[[redirects]]
+  from   = "/api/enquiry"
+  to     = "/.netlify/functions/enquiry"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from   = "/services/*"
+  to     = "/services/:splat"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options    = "nosniff"
+    X-Frame-Options           = "SAMEORIGIN"
+    Referrer-Policy           = "strict-origin-when-cross-origin"
+    Permissions-Policy        = "geolocation=(), microphone=(), camera=()"
+    Content-Security-Policy   = "default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
+
+# Fingerprint-free assets, so cache hard and bust by filename.
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

@@ -1,0 +1,169 @@
+/* ============================================================
+   Northern Edge Joinery Ltd — design tokens
+   Source of truth: design-identity/tokens.css + DESIGN.md
+
+   Dark-first. The dark palette is not a mode, it is the brand.
+   Never hardcode a hex that exists as a token below.
+   ============================================================ */
+
+:root {
+
+  /* ── Colors: Brand ─────────────────────────────────────── */
+  --color-primary:       #dec497;  /* champagne gold — the ONLY accent */
+  --color-secondary:     #f0eeeb;  /* warm bone */
+  --color-accent:        #ceccc5;  /* warm stone */
+  --color-ink:           #131413;
+  --color-charcoal:      #2c2e2c;  /* page ground */
+  --color-white:         #ffffff;  /* button + nav link text — NOT the bone */
+
+  /* ── Colors: Neutral Scale ──────────────────────────────── */
+  /* Inverted ramp: 800/900 are the grounds, 100/300 are the text. */
+  --color-neutral-100: #f0eeeb;  /* heading text on dark */
+  --color-neutral-200: #dfddd8;
+  --color-neutral-300: #ceccc5;  /* body text on dark */
+  --color-neutral-400: #a2a29e;
+  --color-neutral-500: #777777;  /* placeholder text */
+  --color-neutral-700: #494949;  /* DECORATIVE DISPLAY ONLY — ~1.9:1, fails AA */
+  --color-neutral-800: #2c2e2c;
+  --color-neutral-900: #131413;
+
+  /* ── Colors: Surface ────────────────────────────────────── */
+  --color-surface:         #2c2e2c;
+  --color-surface-sunken:  #131413;
+  --color-surface-gold:    #dec497;
+  --color-surface-overlay: rgba(0, 0, 0, 0.4);  /* hero scrim */
+
+  /* ── Colors: Alpha ──────────────────────────────────────── */
+  /* Hairlines are ALWAYS a 30% alpha of an existing colour, never a solid. */
+  --color-alpha-white-30: rgba(255, 255, 255, 0.3);
+  --color-alpha-bone-30:  rgba(240, 238, 235, 0.3);
+  --color-alpha-stone-30: rgba(206, 204, 197, 0.3);
+  --color-alpha-ink-70:   rgba(19, 20, 19, 0.7);
+  --color-alpha-ink-30:   rgba(19, 20, 19, 0.3);
+  --color-alpha-ink-20:   rgba(19, 20, 19, 0.2);
+
+  /* ── Typography: Font Families ──────────────────────────── */
+  --font-heading: 'Cormorant', Georgia, 'Times New Roman', serif;
+  --font-body:    'Raleway', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* ── Typography: Font Sizes ─────────────────────────────── */
+  --text-xs:   0.75rem;   /* 12px */
+  --text-sm:   0.875rem;  /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg:   1.125rem;  /* 18px */
+  --text-xl:   1.25rem;   /* 20px */
+  --text-2xl:  1.5rem;    /* 24px */
+  --text-3xl:  1.875rem;  /* 30px */
+  --text-4xl:  2.375rem;  /* 38px */
+  --text-5xl:  3rem;      /* 48px */
+  --text-6xl:  4.125rem;  /* 66px */
+  --text-7xl:  5.5rem;    /* 88px */
+  --text-8xl:  8rem;      /* 128px */
+
+  /* ── Typography: Font Weights ───────────────────────────── */
+  /* Only two weights exist. 600+ triggers faux-bold and breaks the identity. */
+  --font-normal: 400;
+  --font-medium: 500;
+
+  /* ── Typography: Line Heights ───────────────────────────── */
+  --leading-none:    1;
+  --leading-tight:   1.2;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.6;
+
+  /* ── Typography: Letter Spacing ─────────────────────────── */
+  --tracking-tight:  -0.02em;  /* display + headings */
+  --tracking-snug:   -0.01em;  /* body + UI */
+  --tracking-normal: 0;        /* uppercase nav and buttons */
+
+  /* ── Spacing ────────────────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  28px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 50px;
+  --space-14: 56px;
+  --space-18: 72px;
+  --space-20: 80px;
+  --space-22: 90px;
+  --space-25: 100px;
+  --space-31: 125px;
+  --space-45: 180px;
+
+  /* ── Layout: Named Tokens ───────────────────────────────── */
+  --gutter:        15px;
+  --header-pad:    56px;   /* collapses to 14px on scroll over 300ms */
+  --header-height: 100px;
+  --section-y:     180px;  /* the signature rhythm — do NOT reduce to 64–96px */
+  --section-y-md:  100px;
+  --section-y-sm:  80px;
+  --grid-gap-x:    180px;
+  --grid-gap-y:    80px;
+
+  --container-max:  1440px;
+  --container-wide: 1920px;
+  --measure:        540px;  /* editorial prose measure */
+  --measure-narrow: 360px;
+
+  /* ── Layout: Z-Index ────────────────────────────────────── */
+  --z-nav:      100;
+  --z-header:   101;
+  --z-lightbox: 200;
+
+  /* ── Border Radius ──────────────────────────────────────── */
+  /* Deliberately sharp. Only buttons curve. */
+  --radius-none: 0;
+  --radius-pill: 71px;
+
+  /* ── Borders ────────────────────────────────────────────── */
+  --border-width:    1px;   /* the only border width in the system */
+  --border-hairline: 1px solid rgba(255, 255, 255, 0.3);
+
+  /* ── Shadows ────────────────────────────────────────────── */
+  /* The system has no elevation. Depth is colour contrast and photography. */
+  --shadow-none: none;
+
+  /* ── Motion ─────────────────────────────────────────────── */
+  /* 300ms is the only duration in the system. */
+  --duration-normal: 300ms;
+  --ease-default:    ease;
+  --ease-in-out:     cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Project additions (not in the source kit) ──────────── */
+  /* Resting brightness for photography; hovers return it to 1. */
+  --img-rest-brightness: 0.82;
+
+  /* Select chevron. Shape only — used as a mask so the fill comes from a
+     colour token rather than a hex baked into the data URI. */
+  --chevron-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+/* Container narrows on the source's desktop-first breakpoints.
+   The 180px column gap is held all the way down to 1100px — collapsing it
+   earlier would lose the single most identity-defining measurement at the
+   most common desktop width. */
+@media (max-width: 1100px) {
+  :root {
+    --section-y:    120px;
+    --section-y-md: 90px;
+    --grid-gap-x:   80px;
+    --grid-gap-y:   60px;
+    --header-pad:   32px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --section-y:    80px;
+    --section-y-md: 72px;
+    --section-y-sm: 60px;
+    --grid-gap-x:   40px;
+    --grid-gap-y:   48px;
+    --header-pad:   14px;
+  }
+}
