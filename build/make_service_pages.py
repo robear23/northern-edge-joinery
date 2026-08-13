@@ -310,7 +310,7 @@ TEMPLATE = """<!DOCTYPE html>
           <span class="section-label">Related work</span>
           <h2>{service_name}, as installed.</h2>
         </div>
-        <a class="btn" href="https://instagram.com/northern_edge_joinery_ltd" rel="noopener">See the last 97 projects</a>
+        <a class="btn" href="https://instagram.com/northern_edge_joinery_ltd" rel="noopener">See the full portfolio</a>
       </div>
 
       <!-- PLACEHOLDER IMAGERY — licensed stock interiors graded to the brand,

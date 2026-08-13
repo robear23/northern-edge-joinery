@@ -337,6 +337,30 @@ button { font: inherit; color: inherit; }
   line-height: var(--leading-relaxed);
   max-width: var(--measure);
   color: var(--color-neutral-300);
+  /* Lead copy carries the email address inline on the thank-you page. */
+  overflow-wrap: break-word;
+}
+
+/* Inline links sitting in prose, rather than in a button, a nav or a list.
+   Underlined on the stone hairline so they read as links at rest, and gold
+   on hover like every other link in the system. */
+.lead a,
+.form__status p a,
+.detail p a,
+.drawer__foot a {
+  text-decoration: underline;
+  text-decoration-color: var(--color-alpha-stone-30);
+  text-underline-offset: 0.2em;
+  transition: color var(--duration-normal) var(--ease-in-out),
+              text-decoration-color var(--duration-normal) var(--ease-in-out);
+}
+
+.lead a:hover,
+.form__status p a:hover,
+.detail p a:hover,
+.drawer__foot a:hover {
+  color: var(--color-primary);
+  text-decoration-color: var(--color-primary);
 }
 
 /* ── Header ─────────────────────────────────────────────── */
@@ -485,6 +509,8 @@ button { font: inherit; color: inherit; }
   font-size: var(--text-sm);
 }
 
+.drawer__foot p + p { margin-top: var(--space-3); }
+
 /* ── Hero ───────────────────────────────────────────────── */
 
 .hero {
@@ -504,26 +530,74 @@ button { font: inherit; color: inherit; }
   z-index: 0;
 }
 
-/* <picture> is inline by default, so the img's height:100% would resolve
-   against nothing. Make the wrapper fill the media box. */
-.hero__media picture {
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: heroKenBurns 24s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.hero__slide:nth-child(1) { animation-delay: 0s; }
+.hero__slide:nth-child(2) { animation-delay: 6s; }
+.hero__slide:nth-child(3) { animation-delay: 12s; }
+.hero__slide:nth-child(4) { animation-delay: 18s; }
+
+.hero__slide picture {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.hero__media img {
+.hero__slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform-origin: center center;
 }
 
-/* The scrim. A flat 0.4 ink wash, exactly as the system specifies. */
+/* Keyframes for 4-slide Ken Burns zoom-in rotation (24s cycle, 6s per slide) */
+@keyframes heroKenBurns {
+  0% {
+    opacity: 0;
+    transform: scale(1.0);
+  }
+  4% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  29% {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.0);
+  }
+}
+
+/* Manual override mode when visitor clicks a dot */
+.hero__media.is-manual .hero__slide {
+  animation: none !important;
+  transition: opacity 0.8s ease-in-out, transform 6s ease-out;
+  transform: scale(1.0);
+}
+
+.hero__media.is-manual .hero__slide.is-active {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* The scrim overlay. A flat ink wash sitting above all slides. */
 .hero__media::after {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 2;
   background-color: var(--color-surface-overlay);
+  pointer-events: none;
 }
 
 .hero__inner {
@@ -550,12 +624,71 @@ button { font: inherit; color: inherit; }
 
 .hero__cta { margin-top: var(--space-12); }
 
+/* Slide indicator dots */
+.hero__dots {
+  position: absolute;
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 6px 14px;
+  background-color: var(--color-alpha-ink-50);
+  backdrop-filter: blur(8px);
+  border: var(--border-width) solid var(--color-alpha-white-15);
+  border-radius: var(--radius-pill);
+}
+
+.hero__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--color-alpha-white-40);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--duration-normal) var(--ease-default),
+              transform var(--duration-normal) var(--ease-default),
+              width var(--duration-normal) var(--ease-default);
+}
+
+.hero__dot:hover {
+  background-color: var(--color-white);
+  transform: scale(1.25);
+}
+
+.hero__dot.is-active,
+.hero__dot[aria-selected="true"] {
+  width: 24px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-primary);
+}
+
+/* Reduced motion preference fallback */
+@media (prefers-reduced-motion: reduce) {
+  .hero__slide {
+    animation: none !important;
+    opacity: 0;
+    transform: none !important;
+  }
+  .hero__slide:first-child,
+  .hero__slide.is-active {
+    opacity: 1;
+  }
+}
+
 /* ── Introduction ───────────────────────────────────────── */
 
+/* Two editorial columns, then a full-width band of facts under both.
+   Row gap is stated separately — the 180px column gap is a horizontal
+   measurement and would be far too much air between the prose and the band. */
 .intro__grid {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: var(--grid-gap-x);
+  column-gap: var(--grid-gap-x);
+  row-gap: var(--space-20);
   align-items: start;
 }
 
@@ -574,10 +707,11 @@ button { font: inherit; color: inherit; }
 }
 
 .intro__facts {
-  margin-top: var(--space-20);
+  grid-column: 1 / -1;
   display: grid;
-  gap: var(--space-8);
-  max-width: var(--measure);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-10);
+  max-width: none;
 }
 
 .intro__fact {
@@ -849,6 +983,7 @@ button { font: inherit; color: inherit; }
 }
 
 .step {
+  position: relative; /* anchors the progress rule drawn over the hairline */
   padding-top: var(--space-6);
   border-top: var(--border-width) solid var(--color-alpha-stone-30);
 }
@@ -861,6 +996,7 @@ button { font: inherit; color: inherit; }
   letter-spacing: var(--tracking-tight);
   color: var(--color-neutral-700); /* decorative display — never body size */
   margin-bottom: var(--space-6);
+  transition: color var(--duration-normal) var(--ease-in-out);
 }
 
 .step h3 { margin-bottom: var(--space-4); }
@@ -1060,6 +1196,9 @@ button { font: inherit; color: inherit; }
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
   color: var(--color-neutral-100);
+  /* The email address is one unbreakable token wider than the column on a
+     small phone. Without this it pushes the whole page into a sideways scroll. */
+  overflow-wrap: break-word;
 }
 
 .detail dd a:hover { color: var(--color-primary); }
@@ -1075,7 +1214,11 @@ button { font: inherit; color: inherit; }
 
 .instagram-card:hover { border-color: var(--color-neutral-100); }
 
-.instagram-card h3 { margin-bottom: var(--space-4); }
+/* Same again: @northern_edge_joinery_ltd never breaks on its own. */
+.instagram-card h3 {
+  margin-bottom: var(--space-4);
+  overflow-wrap: break-word;
+}
 .instagram-card p { margin-bottom: var(--space-8); }
 
 /* ── Footer ─────────────────────────────────────────────── */
@@ -1150,12 +1293,76 @@ button { font: inherit; color: inherit; }
 /* Scoped to .js so content is never hidden when the script does not run. */
 .js .reveal {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity var(--duration-normal) var(--ease-default),
-              transform var(--duration-normal) var(--ease-default);
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .js .reveal.is-in { opacity: 1; transform: none; }
+
+/* ── Motion: text reveals ───────────────────────────────── */
+
+/* All three are scoped to .js and all three are undone under
+   prefers-reduced-motion, so the resting page stays the page a no-JS visitor
+   gets. Two of them are driven by scroll position rather than by a timer, so
+   nothing moves unless the reader moves it; the hero is the exception, and it
+   says why below.
+
+   None of them uses gold. Gold is for CTAs, hover and focus, and the closing
+   panel — a progress rule and a resolving word are none of those. */
+
+/* The hero headline resolves word by word on load. It is the one thing on the
+   site that moves without being asked: the hero fills the viewport at scroll
+   0, so there is no travel to hang a scroll-linked reveal on.
+
+   It recesses to 30% bone rather than to --color-neutral-700. The headline
+   sits on a photograph, and the flat recess grey that reads as "held back" on
+   the solid ground just reads as muddy over an image; 30% of the final colour
+   fades up cleanly against anything underneath it.
+
+   Only `from` is declared, so the animation resolves to whatever colour the
+   headline already computes to — the end state cannot drift from the base
+   rule. `backwards` holds the recess through the stagger delay. */
+.js .hero h1 .hero__word {
+  animation: hero-word-resolve 500ms var(--ease-in-out) backwards;
+  animation-delay: calc(var(--word-index, 0) * 70ms);
+}
+
+@keyframes hero-word-resolve {
+  from { color: var(--color-alpha-bone-30); }
+}
+
+/* The statement resolves a word at a time as it is scrolled through, lifting
+   out of the decorative recess into full heading colour.
+
+   #494949 on the ground is ~2:1 and fails AA at any size, so it is never the
+   resting state: without the script every word renders at heading colour, and
+   a word that has resolved never recedes, even on the way back up. */
+.js .intro__statement .statement__word {
+  color: var(--color-neutral-700);
+  transition: color var(--duration-normal) var(--ease-in-out);
+}
+
+.js .intro__statement .statement__word.is-lit { color: inherit; }
+
+/* Each step's top rule is its own progress track: the 30% hairline stays put
+   and the solid stone it is an alpha of draws across it, left to right, as
+   the section passes. scaleX only, so the rule composites rather than
+   repainting on every frame. */
+.js .step::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--border-width) * -1);
+  left: 0;
+  width: 100%;
+  height: var(--border-width);
+  background-color: var(--color-accent);
+  transform: scaleX(var(--step-progress, 0));
+  transform-origin: left center;
+}
+
+/* The numeral lifts out of the same recess as its step is reached. */
+.js .step.is-active .step__no { color: var(--color-neutral-300); }
 
 /* ── Responsive ─────────────────────────────────────────── */
 
@@ -1213,7 +1420,9 @@ button { font: inherit; color: inherit; }
   .hero { padding-top: calc(var(--header-height) + var(--space-10)); }
 
   .service,
-  .process__grid { grid-template-columns: minmax(0, 1fr); }
+  .process__grid,
+  .intro__facts { grid-template-columns: minmax(0, 1fr); }
+  .intro__facts { gap: var(--space-8); }
   .service:nth-child(even) .service__media { order: 0; }
   .service + .service { margin-top: var(--section-y); }
 
@@ -1222,6 +1431,18 @@ button { font: inherit; color: inherit; }
   .footer__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-12); }
 
   .drawer__links a { font-size: var(--text-3xl); }
+
+  /* Step the two long tokens down far enough that they fit the column
+     outright, rather than relying on the break-word safety net. */
+  .detail dd,
+  .instagram-card h3 { font-size: var(--text-xl); }
+
+  /* "Request a Bespoke Consultation" is the longest label on the site and
+     .btn is nowrap. .hero__cta is a centred flex item, so it sizes to
+     fit-content and escapes the container on a 320px screen. Cap it, then
+     let the label wrap; it stays on one line from ~360px up. */
+  .hero__cta { max-width: 100%; }
+  .hero__cta .btn { white-space: normal; }
 
   .lightbox { padding: var(--space-20) var(--space-4) var(--space-4); }
   .lightbox__figure img { max-height: 60vh; }
@@ -1242,6 +1463,15 @@ button { font: inherit; color: inherit; }
   }
 
   .js .reveal { opacity: 1; transform: none; }
+
+  /* All three text reveals collapse to the resting design: both headings fully
+     lit, the progress rules gone and the plain hairline left showing. Stated
+     here as well as in the script so that toggling the OS setting after load
+     still lands somewhere legible. */
+  .js .hero h1 .hero__word { animation: none; }
+  .js .intro__statement .statement__word { color: inherit; }
+  .js .step::after { display: none; }
+  .js .step.is-active .step__no { color: var(--color-neutral-700); }
 }
 
 /* ── Print ──────────────────────────────────────────────── */

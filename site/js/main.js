@@ -329,4 +329,194 @@
       Array.prototype.forEach.call(reveals, function (el) { observer.observe(el); });
     }
   }
+
+  /* ── Scroll progress: one listener, one frame, N subscribers ─ */
+
+  /* A track maps an element's travel through the viewport onto 0…1. `from`
+     and `to` are viewport fractions measured from the top: progress is 0 when
+     the element's top edge sits at `from`, and 1 when its bottom edge reaches
+     `to`. Subscribers are all read in the same frame, so adding an effect
+     costs no extra scroll listener. */
+
+  var tracks = [];
+  var framePending = false;
+
+  function trackProgress(el, from, to, onProgress) {
+    tracks.push({ el: el, from: from, to: to, run: onProgress });
+  }
+
+  function progressOf(track) {
+    var rect = track.el.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var zero = vh * track.from;
+    var one = vh * track.to;
+    // An element taller than its own travel window would divide by zero or
+    // less; treat it as finished rather than letting it jump.
+    var distance = rect.height + zero - one;
+    if (distance <= 0) return 1;
+    return Math.min(1, Math.max(0, (zero - rect.top) / distance));
+  }
+
+  function readTracks() {
+    framePending = false;
+    tracks.forEach(function (t) { t.run(progressOf(t)); });
+  }
+
+  function queueTracks() {
+    if (framePending) return;
+    framePending = true;
+    requestAnimationFrame(readTracks);
+  }
+
+  /* ── Text reveals: the shared word split ─────────────────── */
+
+  /* Split on whitespace and keep the gaps as real text nodes, so the heading's
+     text content, wrapping and accessible name are all unchanged. Words, not
+     characters: at display size a per-character ripple reads as an effect, and
+     a per-word one reads as the sentence arriving.
+
+     The recessed colour lives on these spans and nowhere else, so a script
+     that throws before this runs leaves the heading at full colour rather
+     than stranding it mid-reveal. */
+  function splitWords(el, className) {
+    var frag = document.createDocumentFragment();
+    var words = [];
+
+    el.textContent.split(/(\s+)/).forEach(function (part) {
+      if (!part) return;
+      if (/^\s+$/.test(part)) {
+        frag.appendChild(document.createTextNode(part));
+        return;
+      }
+      var span = document.createElement('span');
+      span.className = className;
+      span.textContent = part;
+      frag.appendChild(span);
+      words.push(span);
+    });
+
+    el.textContent = '';
+    el.appendChild(frag);
+    return words;
+  }
+
+  /* ── Hero headline: resolves on load ─────────────────────── */
+
+  /* The hero is the full viewport at scroll 0, so there is no travel to scrub
+     against — this one runs on a timer, and it is the only thing on the site
+     that does. The delay is carried as an index and the timing lives in the
+     stylesheet, so there are no JS timers to leak or to fall out of step. */
+  if (!reduceMotion) {
+    var heroHeading = document.querySelector('.hero h1');
+    if (heroHeading) {
+      splitWords(heroHeading, 'hero__word').forEach(function (word, i) {
+        word.style.setProperty('--word-index', i);
+      });
+    }
+  }
+
+  /* ── Intro statement: words resolve as you read past them ── */
+
+  if (!reduceMotion) {
+    Array.prototype.forEach.call(
+      document.querySelectorAll('.intro__statement'),
+      function (statement) {
+        var words = splitWords(statement, 'statement__word');
+        var lit = 0; // monotonic — a word that has resolved never recedes
+
+        // Finishes when the statement's bottom edge is 75% down the viewport,
+        // so the last word lands while the sentence is still sitting in the
+        // middle of the screen. Ending it any later — 0.45 was the first
+        // attempt — lights the closing words as they leave the top, which is
+        // exactly when nobody is looking at them.
+        trackProgress(statement, 0.9, 0.75, function (p) {
+          var target = Math.round(p * words.length);
+          while (lit < target) {
+            words[lit].classList.add('is-lit');
+            lit++;
+          }
+        });
+      }
+    );
+  }
+
+  /* ── Process: each step's rule draws in as you reach it ──── */
+
+  /* Service pages reuse .process__grid as a plain two-column layout, so the
+     steps rather than the grid decide whether any of this runs. */
+  var processGrid = document.querySelector('.process__grid');
+  var steps = processGrid
+    ? Array.prototype.slice.call(processGrid.querySelectorAll('.step'))
+    : [];
+
+  if (steps.length && !reduceMotion) {
+    // Each step owns a window of the section's travel. The windows overlap so
+    // the rules read as one run rather than four separate events, and the last
+    // one closes exactly as the section finishes.
+    var SPAN = 0.45;
+    var LEAD = steps.length > 1 ? (1 - SPAN) / (steps.length - 1) : 0;
+
+    trackProgress(processGrid, 0.75, 0.6, function (p) {
+      steps.forEach(function (step, i) {
+        var local = Math.min(1, Math.max(0, (p - i * LEAD) / SPAN));
+        step.style.setProperty('--step-progress', local.toFixed(3));
+        // Halfway, not the first pixel: lighting the numeral the instant its
+        // rule starts drawing puts all four up at once and loses the sequence.
+        step.classList.toggle('is-active', local > 0.5);
+      });
+    });
+  }
+
+  /* ── Hero Slideshow / Dot Synchronization ────────────────── */
+
+  var heroMedia = document.querySelector('.hero__media');
+  var heroSlides = heroMedia ? Array.prototype.slice.call(heroMedia.querySelectorAll('.hero__slide')) : [];
+  var heroDots = Array.prototype.slice.call(document.querySelectorAll('.hero__dot'));
+
+  if (heroSlides.length > 1 && heroDots.length === heroSlides.length) {
+    var slideDuration = 6000;
+    var currentSlideIndex = 0;
+    var slideTimer = null;
+
+    var setSlide = function (index, isManualClick) {
+      currentSlideIndex = index;
+
+      if (isManualClick && heroMedia) {
+        heroMedia.classList.add('is-manual');
+        heroSlides.forEach(function (slide, i) {
+          slide.classList.toggle('is-active', i === index);
+        });
+      }
+
+      heroDots.forEach(function (dot, i) {
+        var active = (i === index);
+        dot.classList.toggle('is-active', active);
+        dot.setAttribute('aria-selected', String(active));
+      });
+    };
+
+    var startAutoSync = function () {
+      if (reduceMotion) return;
+      slideTimer = setInterval(function () {
+        if (heroMedia && heroMedia.classList.contains('is-manual')) return;
+        currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
+        setSlide(currentSlideIndex, false);
+      }, slideDuration);
+    };
+
+    heroDots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        if (slideTimer) clearInterval(slideTimer);
+        setSlide(i, true);
+      });
+    });
+
+    startAutoSync();
+  }
+
+  if (tracks.length) {
+    readTracks();
+    window.addEventListener('scroll', queueTracks, { passive: true });
+    window.addEventListener('resize', queueTracks, { passive: true });
+  }
 })();

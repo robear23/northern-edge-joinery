@@ -137,10 +137,10 @@ PAGES = [
         "meta": "Your enquiry has reached Northern Edge Joinery Ltd in Leeds. We will reply by email to the address you gave us.",
         "eyebrow": "Enquiry received",
         "h1": "Thank you — your enquiry is with us.",
-        "lead": "We will reply to the email address you gave us. If you want to add photographs of the room in the meantime, send them straight to info@northernedgejoineryltd.com — the more we can see, the more useful the first reply will be.",
+        "lead": "We will reply to the email address you gave us. If you want to add photographs of the room in the meantime, send them straight to <a href=\"mailto:info@northernedgejoineryltd.com\">info@northernedgejoineryltd.com</a> — the more we can see, the more useful the first reply will be.",
         "actions": [
             ('<a class="btn btn--filled" href="index.html">Back to the site</a>'),
-            ('<a class="btn" href="https://instagram.com/northern_edge_joinery_ltd" rel="noopener">See the last 97 projects</a>'),
+            ('<a class="btn" href="https://instagram.com/northern_edge_joinery_ltd" rel="noopener">See the portfolio</a>'),
         ],
     },
     {

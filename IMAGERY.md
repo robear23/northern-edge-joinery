@@ -15,7 +15,7 @@ but until it happens the site must not be described as showing their portfolio.
 
 ## Why they are placeholders
 
-The build had no access to the 97 photographs on
+The build had no access to the photographs on
 [@northern_edge_joinery_ltd](https://instagram.com/northern_edge_joinery_ltd).
 Instagram does not permit automated download, and the account holder has not
 supplied an export. Rather than ship an empty grid, the layout is filled with

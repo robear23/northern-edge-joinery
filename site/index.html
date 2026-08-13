@@ -115,22 +115,61 @@
 <main id="main">
 
   <!-- ── 1. Hero ─────────────────────────────────────────── -->
-  <section class="hero">
-    <div class="hero__media">
-      <picture>
-        <source type="image/webp" sizes="100vw"
-          srcset="assets/img/hero-768.webp 768w, assets/img/hero-1200.webp 1200w, assets/img/hero-1600.webp 1600w, assets/img/hero-1920.webp 1920w">
-        <img src="assets/img/hero-1600.jpg" sizes="100vw"
-          srcset="assets/img/hero-768.jpg 768w, assets/img/hero-1200.jpg 1200w, assets/img/hero-1600.jpg 1600w, assets/img/hero-1920.jpg 1920w"
-          width="1920" height="1080" fetchpriority="high" decoding="async"
-          alt="A walk-in wardrobe lined floor to ceiling in walnut, with blackened steel hanging rails and open shelving.">
-      </picture>
+  <section class="hero" aria-roledescription="carousel" aria-label="Hero Showcase">
+    <div class="hero__media" aria-hidden="true">
+      <div class="hero__slide is-active" data-slide="0">
+        <picture>
+          <source type="image/webp" sizes="100vw"
+            srcset="assets/img/hero-768.webp 768w, assets/img/hero-1200.webp 1200w, assets/img/hero-1600.webp 1600w, assets/img/hero-1920.webp 1920w">
+          <img src="assets/img/hero-1600.jpg" sizes="100vw"
+            srcset="assets/img/hero-768.jpg 768w, assets/img/hero-1200.jpg 1200w, assets/img/hero-1600.jpg 1600w, assets/img/hero-1920.jpg 1920w"
+            width="1920" height="1080" fetchpriority="high" decoding="async"
+            alt="A walk-in wardrobe lined floor to ceiling in walnut, with blackened steel hanging rails and open shelving.">
+        </picture>
+      </div>
+      <div class="hero__slide" data-slide="1">
+        <picture>
+          <source type="image/webp" sizes="100vw"
+            srcset="assets/img/service-joinery-560.webp 560w, assets/img/service-joinery-860.webp 860w, assets/img/service-joinery-1200.webp 1200w">
+          <img src="assets/img/service-joinery-1200.jpg" sizes="100vw"
+            srcset="assets/img/service-joinery-560.jpg 560w, assets/img/service-joinery-860.jpg 860w, assets/img/service-joinery-1200.jpg 1200w"
+            width="1200" height="900" loading="lazy" decoding="async"
+            alt="Architectural timber joinery and custom woodworking detail.">
+        </picture>
+      </div>
+      <div class="hero__slide" data-slide="2">
+        <picture>
+          <source type="image/webp" sizes="100vw"
+            srcset="assets/img/service-wardrobes-560.webp 560w, assets/img/service-wardrobes-860.webp 860w, assets/img/service-wardrobes-1200.webp 1200w">
+          <img src="assets/img/service-wardrobes-1200.jpg" sizes="100vw"
+            srcset="assets/img/service-wardrobes-560.jpg 560w, assets/img/service-wardrobes-860.jpg 860w, assets/img/service-wardrobes-1200.jpg 1200w"
+            width="1200" height="900" loading="lazy" decoding="async"
+            alt="A walk-in dressing room with full-height open shelving, hanging rails and integrated lighting.">
+        </picture>
+      </div>
+      <div class="hero__slide" data-slide="3">
+        <picture>
+          <source type="image/webp" sizes="100vw"
+            srcset="assets/img/service-furniture-560.webp 560w, assets/img/service-furniture-860.webp 860w, assets/img/service-furniture-1200.webp 1200w">
+          <img src="assets/img/service-furniture-1200.jpg" sizes="100vw"
+            srcset="assets/img/service-furniture-560.jpg 560w, assets/img/service-furniture-860.jpg 860w, assets/img/service-furniture-1200.jpg 1200w"
+            width="1200" height="900" loading="lazy" decoding="async"
+            alt="A built-in home office with a full-width oak desk, drawer units and open shelving.">
+        </picture>
+      </div>
     </div>
 
     <div class="container hero__inner">
       <h1>Bespoke joinery, made to the millimetre.</h1>
       <p class="lead">A Leeds workshop making fitted wardrobes, cabinetry and furniture for the rooms they are measured in — never flat-pack, never off the shelf.</p>
       <p class="hero__cta"><a class="btn btn--filled btn--lg" href="#contact">Request a Bespoke Consultation</a></p>
+    </div>
+
+    <div class="hero__dots" role="tablist" aria-label="Hero background slides">
+      <button class="hero__dot is-active" type="button" role="tab" aria-selected="true" aria-label="Slide 1: Walk-in wardrobe" data-slide-to="0"></button>
+      <button class="hero__dot" type="button" role="tab" aria-selected="false" aria-label="Slide 2: Bespoke joinery" data-slide-to="1"></button>
+      <button class="hero__dot" type="button" role="tab" aria-selected="false" aria-label="Slide 3: Custom fitted wardrobes" data-slide-to="2"></button>
+      <button class="hero__dot" type="button" role="tab" aria-selected="false" aria-label="Slide 4: Fitted furniture" data-slide-to="3"></button>
     </div>
   </section>
 
@@ -146,22 +185,25 @@
         <p>Northern Edge Joinery is a bespoke joinery workshop in Leeds. We make custom fitted wardrobes, cabinetry and furniture for homes across West Yorkshire — built to the dimensions of the room rather than the dimensions of a warehouse pallet.</p>
         <p class="mt-6">That is the whole difference. A wardrobe that runs into the eaves. Shelving that lands flush against a wall three centimetres out of square. A media wall that hides the cabling because it was drawn around your equipment rather than adapted to it. None of that comes out of a box.</p>
         <p class="mt-6">We work with the homeowner directly, from the first measure to the final fix.</p>
-
-        <dl class="intro__facts">
-          <div class="intro__fact">
-            <dt>Workshop</dt>
-            <dd>Leeds, West Yorkshire</dd>
-          </div>
-          <div class="intro__fact">
-            <dt>Portfolio</dt>
-            <dd>97 projects on Instagram</dd>
-          </div>
-          <div class="intro__fact">
-            <dt>Specialism</dt>
-            <dd>Bespoke and fitted, made to measure</dd>
-          </div>
-        </dl>
       </div>
+
+      <!-- The facts run the full width of the grid rather than sitting in the
+           aside. In the aside they made the right column half as tall again as
+           the left and left a void under the statement. -->
+      <dl class="intro__facts reveal">
+        <div class="intro__fact">
+          <dt>Workshop</dt>
+          <dd>Leeds, West Yorkshire</dd>
+        </div>
+        <div class="intro__fact">
+          <dt>Portfolio</dt>
+          <dd>Photographed and posted to Instagram</dd>
+        </div>
+        <div class="intro__fact">
+          <dt>Specialism</dt>
+          <dd>Bespoke and fitted, made to measure</dd>
+        </div>
+      </dl>
     </div>
   </section>
 
@@ -262,7 +304,7 @@
       <div class="portfolio__head reveal">
         <div>
           <span class="section-label">Selected work</span>
-          <h2 id="work-h">The portfolio lives on Instagram — ninety-seven projects and counting.</h2>
+          <h2 id="work-h">The portfolio is photographed as we go, and it grows with every install.</h2>
         </div>
         <div class="filters" role="group" aria-label="Filter work by service">
           <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
@@ -279,7 +321,7 @@
            address. Swap the files in assets/img/work-*.* and update the alt text
            and captions when the real photographs are supplied — see IMAGERY.md. -->
       <div class="grid-work" id="work-grid">
-        <button class="work" type="button" data-cat="joinery" data-full="assets/img/work-01-lg-1400.jpg" data-caption="Full-height library shelving, exposed brick" data-cat-label="Bespoke joinery">
+        <button class="work reveal" type="button" data-cat="joinery" data-full="assets/img/work-01-lg-1400.jpg" data-caption="Full-height library shelving, exposed brick" data-cat-label="Bespoke joinery">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-01-400.webp 400w, assets/img/work-01-760.webp 760w, assets/img/work-01-1100.webp 1100w">
             <img src="assets/img/work-01-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-01-400.jpg 400w, assets/img/work-01-760.jpg 760w, assets/img/work-01-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="Floor-to-ceiling timber library shelving running the length of a hallway beside an exposed brick wall.">
@@ -287,7 +329,7 @@
           <span class="work__caption"><span>Full-height library shelving</span><span class="work__cat">Joinery</span></span>
         </button>
 
-        <button class="work" type="button" data-cat="joinery" data-full="assets/img/work-02-lg-1400.jpg" data-caption="Arched bookcase, moulded timber" data-cat-label="Bespoke joinery">
+        <button class="work reveal" type="button" data-cat="joinery" data-full="assets/img/work-02-lg-1400.jpg" data-caption="Arched bookcase, moulded timber" data-cat-label="Bespoke joinery">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-02-400.webp 400w, assets/img/work-02-760.webp 760w, assets/img/work-02-1100.webp 1100w">
             <img src="assets/img/work-02-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-02-400.jpg 400w, assets/img/work-02-760.jpg 760w, assets/img/work-02-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="An arched timber bookcase built into a curved wall, filled with books from floor to ceiling.">
@@ -295,7 +337,7 @@
           <span class="work__caption"><span>Arched bookcase</span><span class="work__cat">Joinery</span></span>
         </button>
 
-        <button class="work" type="button" data-cat="joinery" data-full="assets/img/work-03-lg-1400.jpg" data-caption="Vertical timber slat screen" data-cat-label="Bespoke joinery">
+        <button class="work reveal" type="button" data-cat="joinery" data-full="assets/img/work-03-lg-1400.jpg" data-caption="Vertical timber slat screen" data-cat-label="Bespoke joinery">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-03-400.webp 400w, assets/img/work-03-760.webp 760w, assets/img/work-03-1100.webp 1100w">
             <img src="assets/img/work-03-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-03-400.jpg 400w, assets/img/work-03-760.jpg 760w, assets/img/work-03-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="A vertical timber slat screen forming a room divider behind an upholstered reading chair.">
@@ -303,7 +345,7 @@
           <span class="work__caption"><span>Timber slat screen</span><span class="work__cat">Joinery</span></span>
         </button>
 
-        <button class="work" type="button" data-cat="joinery" data-full="assets/img/work-04-lg-1400.jpg" data-caption="Slim alcove shelving beside a panelled door" data-cat-label="Bespoke joinery">
+        <button class="work reveal" type="button" data-cat="joinery" data-full="assets/img/work-04-lg-1400.jpg" data-caption="Slim alcove shelving beside a panelled door" data-cat-label="Bespoke joinery">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-04-400.webp 400w, assets/img/work-04-760.webp 760w, assets/img/work-04-1100.webp 1100w">
             <img src="assets/img/work-04-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-04-400.jpg 400w, assets/img/work-04-760.jpg 760w, assets/img/work-04-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="Slim open shelving fitted into a narrow alcove beside a tall panelled door.">
@@ -311,7 +353,7 @@
           <span class="work__caption"><span>Alcove shelving</span><span class="work__cat">Joinery</span></span>
         </button>
 
-        <button class="work" type="button" data-cat="wardrobes" data-full="assets/img/work-05-lg-1400.jpg" data-caption="Timber-lined walk-in dressing room" data-cat-label="Fitted wardrobes">
+        <button class="work reveal" type="button" data-cat="wardrobes" data-full="assets/img/work-05-lg-1400.jpg" data-caption="Timber-lined walk-in dressing room" data-cat-label="Fitted wardrobes">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-05-400.webp 400w, assets/img/work-05-760.webp 760w, assets/img/work-05-1100.webp 1100w">
             <img src="assets/img/work-05-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-05-400.jpg 400w, assets/img/work-05-760.jpg 760w, assets/img/work-05-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="A walk-in dressing room lined in pale timber with continuous hanging rails and recessed strip lighting.">
@@ -319,7 +361,7 @@
           <span class="work__caption"><span>Walk-in dressing room</span><span class="work__cat">Wardrobes</span></span>
         </button>
 
-        <button class="work" type="button" data-cat="wardrobes" data-full="assets/img/work-06-lg-1400.jpg" data-caption="Open wardrobe interior, oak and graphite" data-cat-label="Fitted wardrobes">
+        <button class="work reveal" type="button" data-cat="wardrobes" data-full="assets/img/work-06-lg-1400.jpg" data-caption="Open wardrobe interior, oak and graphite" data-cat-label="Fitted wardrobes">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-06-400.webp 400w, assets/img/work-06-760.webp 760w, assets/img/work-06-1100.webp 1100w">
             <img src="assets/img/work-06-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-06-400.jpg 400w, assets/img/work-06-760.jpg 760w, assets/img/work-06-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="The open interior of a fitted wardrobe with oak shelving, graphite carcasses and pull-out shoe racks.">
@@ -327,7 +369,7 @@
           <span class="work__caption"><span>Wardrobe interior</span><span class="work__cat">Wardrobes</span></span>
         </button>
 
-        <button class="work" type="button" data-cat="wardrobes" data-full="assets/img/work-07-lg-1400.jpg" data-caption="Concealed door in a timber-panelled run" data-cat-label="Fitted wardrobes">
+        <button class="work reveal" type="button" data-cat="wardrobes" data-full="assets/img/work-07-lg-1400.jpg" data-caption="Concealed door in a timber-panelled run" data-cat-label="Fitted wardrobes">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-07-400.webp 400w, assets/img/work-07-760.webp 760w, assets/img/work-07-1100.webp 1100w">
             <img src="assets/img/work-07-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-07-400.jpg 400w, assets/img/work-07-760.jpg 760w, assets/img/work-07-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="A flush concealed door set into a full-height run of timber and painted wall panelling.">
@@ -335,7 +377,7 @@
           <span class="work__caption"><span>Concealed door run</span><span class="work__cat">Wardrobes</span></span>
         </button>
 
-        <button class="work" type="button" data-cat="wardrobes" data-full="assets/img/work-08-lg-1400.jpg" data-caption="Bedroom with timber-panelled headboard wall" data-cat-label="Fitted wardrobes">
+        <button class="work reveal" type="button" data-cat="wardrobes" data-full="assets/img/work-08-lg-1400.jpg" data-caption="Bedroom with timber-panelled headboard wall" data-cat-label="Fitted wardrobes">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-08-400.webp 400w, assets/img/work-08-760.webp 760w, assets/img/work-08-1100.webp 1100w">
             <img src="assets/img/work-08-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-08-400.jpg 400w, assets/img/work-08-760.jpg 760w, assets/img/work-08-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="A bedroom with a full-width timber panelled headboard wall and integrated bedside shelving.">
@@ -343,7 +385,7 @@
           <span class="work__caption"><span>Panelled headboard wall</span><span class="work__cat">Wardrobes</span></span>
         </button>
 
-        <button class="work" type="button" data-cat="furniture" data-full="assets/img/work-09-lg-1400.jpg" data-caption="Library wall with integrated seating" data-cat-label="Fitted furniture">
+        <button class="work reveal" type="button" data-cat="furniture" data-full="assets/img/work-09-lg-1400.jpg" data-caption="Library wall with integrated seating" data-cat-label="Fitted furniture">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-09-400.webp 400w, assets/img/work-09-760.webp 760w, assets/img/work-09-1100.webp 1100w">
             <img src="assets/img/work-09-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-09-400.jpg 400w, assets/img/work-09-760.jpg 760w, assets/img/work-09-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="A floor-to-ceiling library wall behind a tan leather sofa, lit by a single table lamp.">
@@ -351,7 +393,7 @@
           <span class="work__caption"><span>Library wall</span><span class="work__cat">Furniture</span></span>
         </button>
 
-        <button class="work" type="button" data-cat="furniture" data-full="assets/img/work-10-lg-1400.jpg" data-caption="Hallway cabinetry in timber and graphite" data-cat-label="Fitted furniture">
+        <button class="work reveal" type="button" data-cat="furniture" data-full="assets/img/work-10-lg-1400.jpg" data-caption="Hallway cabinetry in timber and graphite" data-cat-label="Fitted furniture">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-10-400.webp 400w, assets/img/work-10-760.webp 760w, assets/img/work-10-1100.webp 1100w">
             <img src="assets/img/work-10-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-10-400.jpg 400w, assets/img/work-10-760.jpg 760w, assets/img/work-10-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="A run of full-height hallway cabinetry in dark timber with a vertical fluted panel detail.">
@@ -359,7 +401,7 @@
           <span class="work__caption"><span>Hallway cabinetry</span><span class="work__cat">Furniture</span></span>
         </button>
 
-        <button class="work" type="button" data-cat="furniture" data-full="assets/img/work-11-lg-1400.jpg" data-caption="Utility run in graphite timber" data-cat-label="Fitted furniture">
+        <button class="work reveal" type="button" data-cat="furniture" data-full="assets/img/work-11-lg-1400.jpg" data-caption="Utility run in graphite timber" data-cat-label="Fitted furniture">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-11-400.webp 400w, assets/img/work-11-760.webp 760w, assets/img/work-11-1100.webp 1100w">
             <img src="assets/img/work-11-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-11-400.jpg 400w, assets/img/work-11-760.jpg 760w, assets/img/work-11-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="A fitted utility run in graphite-stained timber with a stone worktop and wall-mounted rail.">
@@ -367,7 +409,7 @@
           <span class="work__caption"><span>Utility run</span><span class="work__cat">Furniture</span></span>
         </button>
 
-        <button class="work" type="button" data-cat="furniture" data-full="assets/img/work-12-lg-1400.jpg" data-caption="Island and full-height storage in oak" data-cat-label="Fitted furniture">
+        <button class="work reveal" type="button" data-cat="furniture" data-full="assets/img/work-12-lg-1400.jpg" data-caption="Island and full-height storage in oak" data-cat-label="Fitted furniture">
           <picture>
             <source type="image/webp" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-12-400.webp 400w, assets/img/work-12-760.webp 760w, assets/img/work-12-1100.webp 1100w">
             <img src="assets/img/work-12-760.jpg" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1100px) 45vw, 30vw" srcset="assets/img/work-12-400.jpg 400w, assets/img/work-12-760.jpg 760w, assets/img/work-12-1100.jpg 1100w" width="1100" height="1375" loading="lazy" decoding="async" alt="A solid oak island top beside full-height dark timber storage and open shelving.">
@@ -380,7 +422,7 @@
 
       <div class="portfolio__foot reveal">
         <p>Every piece we finish is photographed and posted. It is the most honest record of the work there is — no renders, no showroom, just the piece as it was installed.</p>
-        <a class="btn" href="https://instagram.com/northern_edge_joinery_ltd" rel="noopener">See the last 97 projects</a>
+        <a class="btn" href="https://instagram.com/northern_edge_joinery_ltd" rel="noopener">See the full portfolio</a>
       </div>
     </div>
   </section>
@@ -513,8 +555,8 @@
 
         <div class="instagram-card">
           <h3>@northern_edge_joinery_ltd</h3>
-          <p>Ninety-seven projects, posted as they were finished. The quickest way to see whether we build the kind of thing you want.</p>
-          <a class="btn" href="https://instagram.com/northern_edge_joinery_ltd" rel="noopener">See the last 97 projects</a>
+          <p>Every project, posted as it was finished. The quickest way to see whether we build the kind of thing you want.</p>
+          <a class="btn" href="https://instagram.com/northern_edge_joinery_ltd" rel="noopener">See the portfolio</a>
         </div>
       </div>
     </div>
